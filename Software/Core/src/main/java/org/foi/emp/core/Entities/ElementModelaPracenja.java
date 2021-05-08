@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(tableName = "ElementModelaPracenja")
 public class ElementModelaPracenja {
     @PrimaryKey(autoGenerate = true)
     private int id;

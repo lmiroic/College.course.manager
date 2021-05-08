@@ -21,18 +21,18 @@ public interface KolegijDAO {
     @Delete
     public void brisanjeKolegija(Kolegij... kolegiji);
 
-    @Query("SELECT * FROM kolegij")
+    @Query("SELECT * FROM Kolegij")
     public List<Kolegij> dohvatiSveKolegije();
 
-    @Query("SELECT * FROM kolegij WHERE id = :id")
+    @Query("SELECT * FROM Kolegij WHERE id = :id")
     public Kolegij dohvatiKolegij(int id);
 
-    @Query("SELECT * FROM kolegij")
+    @Query("SELECT * FROM Kolegij")
     public LiveData<List<Kolegij>> dohvatiSveKolegijeLIVE();
 
-    @Query("SELECT * FROM kolegij WHERE id = :id")
+    @Query("SELECT * FROM Kolegij WHERE id = :id")
     public LiveData<Kolegij> dohvatiKolegijLIVE(int id);
 
-    @Query("DELETE FROM kolegij")
+    @Query("DELETE FROM Kolegij")
     public void izbrisiSveKolegije();
 }
