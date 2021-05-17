@@ -1,6 +1,7 @@
 package org.foi.emp.core.DAO;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -10,7 +11,7 @@ import androidx.room.Update;
 import org.foi.emp.core.Entities.Kolegij;
 
 import java.util.List;
-
+@Dao
 public interface KolegijDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosKolegija(Kolegij... kolegiji);

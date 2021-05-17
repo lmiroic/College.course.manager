@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CollegeCourseManager">
+        <activity android:name=".DodavanjeBodovaKolegiju"></activity>
+        <activity android:name=".DodavanjeKolegija" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

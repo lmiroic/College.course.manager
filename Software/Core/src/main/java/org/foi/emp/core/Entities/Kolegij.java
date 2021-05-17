@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity(tableName = "Kolegij",foreignKeys = {@ForeignKey(entity = ModelPracenja.class,parentColumns = "id",childColumns = "modelPracenja")})
 public class Kolegij {
     @PrimaryKey(autoGenerate = true)
@@ -18,4 +15,31 @@ public class Kolegij {
 
     private String nazivKolegija;
     private int modelPracenja;
+
+    public Kolegij() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNazivKolegija() {
+        return nazivKolegija;
+    }
+
+    public void setNazivKolegija(String nazivKolegija) {
+        this.nazivKolegija = nazivKolegija;
+    }
+
+    public int getModelPracenja() {
+        return modelPracenja;
+    }
+
+    public void setModelPracenja(int modelPracenja) {
+        this.modelPracenja = modelPracenja;
+    }
 }
