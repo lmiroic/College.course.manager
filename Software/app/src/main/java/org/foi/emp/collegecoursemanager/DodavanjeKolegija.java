@@ -2,10 +2,8 @@ package org.foi.emp.collegecoursemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.net.ParseException;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,12 +23,12 @@ public class DodavanjeKolegija extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodavanje_kolegija);
-        this.spremi = findViewById(R.id.btnSpremiKolegij);
+        this.spremi = findViewById(R.id.btnSpremiBodove);
         this.nazivKolegija = findViewById(R.id.txtNazivKolegija);
         this.modelPracenja = findViewById(R.id.txtModelPracenja);
         this.kolokvij1 = findViewById(R.id.txtKolokvij1MoguciBodovi);
         this.kolokvij2 = findViewById(R.id.txtKolokvij2MoguciBodovi);
-        this.aktivnost = findViewById(R.id.txtAktivnostMoguciBodovi);
+        this.aktivnost = findViewById(R.id.txtOstvareniBodovi);
         this.labosi = findViewById(R.id.txtLabosiMoguciBrojBodova);
         this.kolokvij1.setInputType(InputType.TYPE_CLASS_NUMBER);
         this.kolokvij2.setInputType(InputType.TYPE_CLASS_NUMBER);

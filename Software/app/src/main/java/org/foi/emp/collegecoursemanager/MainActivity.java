@@ -7,10 +7,12 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.foi.emp.collegecoursemanager.Adapters.KolegijAdapter;
+import org.foi.emp.collegecoursemanager.viewModels.BodoviViewModel;
 import org.foi.emp.collegecoursemanager.viewModels.KolegijViewModel;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.Kolegij;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private KolegijViewModel kolegijViewModel;
     private KolegijAdapter adapter;
-    private View view;
+    private BodoviViewModel bodoviViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         PostaviRecycleView();
+        makeKolegijEraseable(recyclerView,adapter);
     }
 
     private KolegijAdapter PostaviRecycleView() {
-
         this.recyclerView = (RecyclerView) findViewById(R.id.recyleViewPopisKolegija);
-        this.adapter = new KolegijAdapter(this);
+        this.adapter = new KolegijAdapter(this,this);
         this.kolegijViewModel.dohvatiSveKolegijeLIVE();
         this.adapter.setKolegiji(kolegijViewModel.dohvatiSveKolegijeLIVE().getValue());
         this.kolegijViewModel.kolegijiLIVEData.observe(this, new Observer<List<Kolegij>>() {
@@ -83,5 +86,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void makeKolegijEraseable(final RecyclerView recyclerView, final KolegijAdapter kolegijAdapter){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Kolegij kolegij = kolegijAdapter.getKolegijAtPosition(viewHolder.getAdapterPosition());
+                kolegijAdapter.removeKolegijAtPosition(viewHolder.getAdapterPosition());
+                kolegijViewModel.izbrisiModelPracenja(kolegij);
+                kolegijViewModel.izbrisiKolegij(kolegij);
+                bodoviViewModel.izbrisiElementeKolegija(kolegij);
+                Snackbar.make(recyclerView,"Izbrisan je kolegij "+kolegij.getNazivKolegija(),Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 }

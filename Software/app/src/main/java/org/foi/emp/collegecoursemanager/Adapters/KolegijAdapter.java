@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.util.StringUtil;
 
@@ -24,17 +26,28 @@ import org.foi.emp.core.Entities.Kolegij;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijHolder> {
     private List<Kolegij> sviKolegiji = new ArrayList<>();
     private Context context;
+    private AppCompatActivity activity;
+    private int brojBodova;
+    private String brojBodovaOd100;
 
-    public KolegijAdapter(Context context) {
+    public KolegijAdapter(Context context, AppCompatActivity activity) {
         this.context = context;
+        this.activity = activity;
     }
 
     public void setKolegiji(List<Kolegij> sviProslijedeniKolegiji) {
         this.sviKolegiji = sviProslijedeniKolegiji;
+    }
+    public Kolegij getKolegijAtPosition(int position){
+        return sviKolegiji.get(position);
+    }
+    public void removeKolegijAtPosition(int position){
+        sviKolegiji.remove(position);
     }
 
     @NonNull
@@ -48,13 +61,23 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
     @Override
     public void onBindViewHolder(@NonNull KolegijAdapter.KolegijHolder holder, final int position) {
         final Kolegij trenutniKolegij = sviKolegiji.get(position);
-        String brojBodovaOd100 = "";
-        final int brojBodova = Database.getInstance(context).getModelPracenjaDAO().dohvatiElementeModelaPracenja(trenutniKolegij.getModelPracenja())
+        brojBodova = Database.getInstance(context).getModelPracenjaDAO().dohvatiElementeModelaPracenja(trenutniKolegij.getModelPracenja())
                 .stream()
                 .map(elementiNaModeluPracenja -> elementiNaModeluPracenja.getElementModelaPracenja())
                 .map(emnp -> {
                     return Database.getInstance(context).getModelPracenjaDAO().dohvatiElementModelaPracenja(emnp);
                 }).mapToInt(bod -> bod.getOstvareniBodovi()).sum();
+        Database.getInstance(context).getModelPracenjaDAO().dohvatiElementeModelaLIVE(trenutniKolegij.getModelPracenja()).observe(activity, new Observer<List<ElementModelaPracenja>>() {
+            @Override
+            public void onChanged(List<ElementModelaPracenja> elementModelaPracenjas) {
+                brojBodova = elementModelaPracenjas
+                        .stream()
+                        .mapToInt(bod -> bod.getOstvareniBodovi()).sum();
+                brojBodovaOd100 = brojBodova + " / 100";
+                holder.tvBrojBodova.setText(brojBodovaOd100);
+                holder.tvOcjena.setText(getGradeFromPoints(brojBodova));
+            }
+        });
         brojBodovaOd100 = brojBodova + " / 100";
         holder.tvBrojBodova.setText(brojBodovaOd100);
         holder.tvOcjena.setText(this.getGradeFromPoints(brojBodova));
