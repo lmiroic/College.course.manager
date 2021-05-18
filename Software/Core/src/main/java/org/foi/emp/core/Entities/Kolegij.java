@@ -31,7 +31,7 @@ public class Kolegij {
         return nazivKolegija;
     }
 
-    public void setNazivKolegija(String nazivKolegija) {
+    public void setNazivKolegija(final String nazivKolegija) {
         this.nazivKolegija = nazivKolegija;
     }
 
@@ -39,7 +39,7 @@ public class Kolegij {
         return modelPracenja;
     }
 
-    public void setModelPracenja(int modelPracenja) {
+    public void setModelPracenja(final int modelPracenja) {
         this.modelPracenja = modelPracenja;
     }
 }

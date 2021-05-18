@@ -23,7 +23,7 @@ public class ElementModelaPracenja {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class ElementModelaPracenja {
         return naziv;
     }
 
-    public void setNaziv(String naziv) {
+    public void setNaziv(final String naziv) {
         this.naziv = naziv;
     }
 
@@ -39,7 +39,7 @@ public class ElementModelaPracenja {
         return maksimalniBrojBodova;
     }
 
-    public void setMaksimalniBrojBodova(int maksimalniBrojBodova) {
+    public void setMaksimalniBrojBodova(final int maksimalniBrojBodova) {
         this.maksimalniBrojBodova = maksimalniBrojBodova;
     }
 
@@ -47,7 +47,7 @@ public class ElementModelaPracenja {
         return ostvareniBodovi;
     }
 
-    public void setOstvareniBodovi(int ostvareniBodovi) {
+    public void setOstvareniBodovi(final int ostvareniBodovi) {
         this.ostvareniBodovi = ostvareniBodovi;
     }
 }

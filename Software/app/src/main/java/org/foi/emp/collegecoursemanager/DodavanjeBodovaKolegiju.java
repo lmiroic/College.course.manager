@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class DodavanjeBodovaKolegiju extends AppCompatActivity {
-
+    private int ID_kolegija;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodavanje_bodova_kolegiju);
-        Intent i=getIntent();
-        if(i!=null&&i.getIntExtra("ID_kolegija",0)!=0){
-            Toast.makeText(getApplicationContext(),"Ko kumi",Toast.LENGTH_SHORT).show();
+        Intent i = getIntent();
+        if (i != null && i.getIntExtra("ID_kolegija", 0) != 0) {
+            Toast.makeText(getApplicationContext(), "Ko kumi", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        kolegijViewModel = ViewModelProviders.of(this).get(KolegijViewModel.class);
-        database = Database.getInstance(this);
+        this.kolegijViewModel = ViewModelProviders.of(this).get(KolegijViewModel.class);
+        this.database = Database.getInstance(this);
         FloatingActionButton fab = findViewById(R.id.btnDodajKolegij);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     private KolegijAdapter PostaviRecycleView() {
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyleViewPopisKolegija);
-        adapter = new KolegijAdapter(this);
-        kolegijViewModel.dohvatiSveKolegijeLIVE();
-        adapter.setKolegiji(kolegijViewModel.dohvatiSveKolegijeLIVE().getValue());
-        kolegijViewModel.kolegijiLIVEData.observe(this, new Observer<List<Kolegij>>() {
+        this.recyclerView = (RecyclerView) findViewById(R.id.recyleViewPopisKolegija);
+        this.adapter = new KolegijAdapter(this);
+        this.kolegijViewModel.dohvatiSveKolegijeLIVE();
+        this.adapter.setKolegiji(kolegijViewModel.dohvatiSveKolegijeLIVE().getValue());
+        this.kolegijViewModel.kolegijiLIVEData.observe(this, new Observer<List<Kolegij>>() {
             @Override
             public void onChanged(List<Kolegij> kolegijs) {
                 adapter.setKolegiji(kolegijs);

@@ -21,7 +21,7 @@ public class KolegijViewModel extends AndroidViewModel {
         this.context=application;
     }
     public LiveData<List<Kolegij>> dohvatiSveKolegijeLIVE(){
-        kolegijiLIVEData= Database.getInstance(context).getKolegijDAO().dohvatiSveKolegijeLIVE();
+        this.kolegijiLIVEData= Database.getInstance(context).getKolegijDAO().dohvatiSveKolegijeLIVE();
         return  kolegijiLIVEData;
     }
 }

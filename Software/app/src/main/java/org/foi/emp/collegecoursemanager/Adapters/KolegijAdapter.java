@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.util.StringUtil;
 
 import org.foi.emp.collegecoursemanager.DodavanjeBodovaKolegiju;
 import org.foi.emp.collegecoursemanager.R;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijHolder> {
-    private List<Kolegij> sviKolegiji=new ArrayList<>();
+    private List<Kolegij> sviKolegiji = new ArrayList<>();
     private Context context;
 
     public KolegijAdapter(Context context) {
@@ -33,7 +34,7 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
     }
 
     public void setKolegiji(List<Kolegij> sviProslijedeniKolegiji) {
-        sviKolegiji = sviProslijedeniKolegiji;
+        this.sviKolegiji = sviProslijedeniKolegiji;
     }
 
     @NonNull
@@ -47,33 +48,16 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
     @Override
     public void onBindViewHolder(@NonNull KolegijAdapter.KolegijHolder holder, final int position) {
         final Kolegij trenutniKolegij = sviKolegiji.get(position);
-        String brojBodovaOd100="";
-        int brojBodova = Database.getInstance(context).getModelPracenjaDAO().dohvati(trenutniKolegij.getModelPracenja())
+        String brojBodovaOd100 = "";
+        final int brojBodova = Database.getInstance(context).getModelPracenjaDAO().dohvatiElementeModelaPracenja(trenutniKolegij.getModelPracenja())
                 .stream()
                 .map(elementiNaModeluPracenja -> elementiNaModeluPracenja.getElementModelaPracenja())
-                .map(emnp -> {return Database.getInstance(context).getModelPracenjaDAO().DohvatiElementModelaPracenja(emnp);
-        }).mapToInt(bod -> bod.getOstvareniBodovi()).sum();
-        brojBodovaOd100=brojBodova+" / 100";
+                .map(emnp -> {
+                    return Database.getInstance(context).getModelPracenjaDAO().dohvatiElementModelaPracenja(emnp);
+                }).mapToInt(bod -> bod.getOstvareniBodovi()).sum();
+        brojBodovaOd100 = brojBodova + " / 100";
         holder.tvBrojBodova.setText(brojBodovaOd100);
-        try{
-            if(brojBodova<50){
-                holder.tvOcjena.setText("1");
-            }
-            if(brojBodova>=50&&brojBodova<=60){
-                holder.tvOcjena.setText("2");
-            }
-            if(brojBodova>=61&&brojBodova<=75){
-                holder.tvOcjena.setText("3");
-            }
-            if(brojBodova>=76&&brojBodova<=90){
-                holder.tvOcjena.setText("4");
-            }
-            if(brojBodova>=90) {
-                holder.tvOcjena.setText("5");
-            }
-        }catch(ArithmeticException e){
-            Log.e("Exception",e.getMessage());
-        }
+        holder.tvOcjena.setText(this.getGradeFromPoints(brojBodova));
         holder.tvNazivKolegija.setText(trenutniKolegij.getNazivKolegija());
     }
 
@@ -87,17 +71,18 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
         private TextView tvBrojBodova;
         private TextView tvNazivKolegija;
         private View view;
+
         public KolegijHolder(@NonNull View itemView) {
             super(itemView);
-            view=itemView;
-            tvNazivKolegija=view.findViewById(R.id.tvNazivKolegija);
-            tvOcjena=view.findViewById(R.id.tvOcjena);
-            tvBrojBodova=view.findViewById(R.id.tvBrojBodova);
+            this.view = itemView;
+            this.tvNazivKolegija = view.findViewById(R.id.tvNazivKolegija);
+            this.tvOcjena = view.findViewById(R.id.tvOcjena);
+            this.tvBrojBodova = view.findViewById(R.id.tvBrojBodova);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i=new Intent(context,DodavanjeBodovaKolegiju.class);
-                    i.putExtra("ID_kolegija",sviKolegiji.get(getPosition()).getId());
+                    Intent i = new Intent(context, DodavanjeBodovaKolegiju.class);
+                    i.putExtra("ID_kolegija", sviKolegiji.get(getPosition()).getId());
                     context.startActivity(i);
                 }
             });
@@ -105,8 +90,29 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
 
         @Override
         public void onClick(View v) {
-
-
         }
+    }
+
+    public String getGradeFromPoints(final int brojBodova) {
+        try {
+            if (brojBodova < 50) {
+                return "1";
+            }
+            if (brojBodova >= 50 && brojBodova <= 60) {
+                return "2";
+            }
+            if (brojBodova >= 61 && brojBodova <= 75) {
+                return "3";
+            }
+            if (brojBodova >= 76 && brojBodova <= 90) {
+                return "4";
+            }
+            if (brojBodova >= 90) {
+                return "5";
+            }
+        } catch (final ArithmeticException e) {
+            Log.e("Exception", e.getMessage());
+        }
+        return "";
     }
 }

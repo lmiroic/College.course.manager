@@ -29,7 +29,7 @@ public class ModelPracenja {
         return naziv;
     }
 
-    public void setNaziv(String naziv) {
+    public void setNaziv(final String naziv) {
         this.naziv = naziv;
     }
 }

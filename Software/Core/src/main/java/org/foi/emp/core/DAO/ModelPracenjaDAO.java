@@ -27,10 +27,10 @@ public interface ModelPracenjaDAO {
     public List<ModelPracenja> dohvatiSveModelePracenja();
 
     @Query("SELECT * FROM ElementiModelaPracenja enmp where enmp.modelPracenja=:modelPracenja")
-    public List<ElementiNaModeluPracenja> dohvati(int modelPracenja);
+    public List<ElementiNaModeluPracenja> dohvatiElementeModelaPracenja(int modelPracenja);
 
     @Query("SELECT * FROM ElementModelaPracenja where id=:modelPracenja")
-    public ElementModelaPracenja DohvatiElementModelaPracenja(int modelPracenja);
+    public ElementModelaPracenja dohvatiElementModelaPracenja(int modelPracenja);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] unosElementaModelaPracenja(ElementModelaPracenja... elementModelaPracenjas);

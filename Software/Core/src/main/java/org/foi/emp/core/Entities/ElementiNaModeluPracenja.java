@@ -32,7 +32,7 @@ public class ElementiNaModeluPracenja {
         return modelPracenja;
     }
 
-    public void setModelPracenja(int modelPracenja) {
+    public void setModelPracenja(final int modelPracenja) {
         this.modelPracenja = modelPracenja;
     }
 
@@ -40,7 +40,7 @@ public class ElementiNaModeluPracenja {
         return elementModelaPracenja;
     }
 
-    public void setElementModelaPracenja(int elementModelaPracenja) {
+    public void setElementModelaPracenja(final int elementModelaPracenja) {
         this.elementModelaPracenja = elementModelaPracenja;
     }
 }
