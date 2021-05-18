@@ -98,9 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 Kolegij kolegij = kolegijAdapter.getKolegijAtPosition(viewHolder.getAdapterPosition());
                 kolegijAdapter.removeKolegijAtPosition(viewHolder.getAdapterPosition());
-                kolegijViewModel.izbrisiModelPracenja(kolegij);
                 kolegijViewModel.izbrisiKolegij(kolegij);
-                bodoviViewModel.izbrisiElementeKolegija(kolegij);
                 Snackbar.make(recyclerView,"Izbrisan je kolegij "+kolegij.getNazivKolegija(),Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             }
         }).attachToRecyclerView(recyclerView);

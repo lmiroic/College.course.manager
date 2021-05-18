@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Entity(tableName = "ElementiModelaPracenja",foreignKeys = {@ForeignKey(entity = ModelPracenja.class,parentColumns = "id",childColumns = "modelPracenja"),@ForeignKey(entity = ElementModelaPracenja.class,parentColumns = "id",childColumns = "elementModelaPracenja")})
+@Entity(tableName = "ElementiModelaPracenja",foreignKeys = {@ForeignKey(entity = ModelPracenja.class,parentColumns = "id",childColumns = "modelPracenja",onDelete = ForeignKey.CASCADE),@ForeignKey(entity = ElementModelaPracenja.class,parentColumns = "id",childColumns = "elementModelaPracenja",onDelete = ForeignKey.CASCADE)})
 public class ElementiNaModeluPracenja {
     @PrimaryKey(autoGenerate = true)
     private int id;
