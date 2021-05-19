@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                Kolegij kolegij = kolegijAdapter.getKolegijAtPosition(viewHolder.getAdapterPosition());
+                final Kolegij kolegij = kolegijAdapter.getKolegijAtPosition(viewHolder.getAdapterPosition());
                 kolegijAdapter.removeKolegijAtPosition(viewHolder.getAdapterPosition());
                 kolegijViewModel.izbrisiKolegij(kolegij);
                 Snackbar.make(recyclerView, "Izbrisan je kolegij " + kolegij.getNazivKolegija(), Snackbar.LENGTH_SHORT).setAction("Action", null).show();
