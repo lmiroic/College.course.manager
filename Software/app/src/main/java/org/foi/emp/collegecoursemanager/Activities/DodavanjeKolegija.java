@@ -66,7 +66,7 @@ public class DodavanjeKolegija extends AppCompatActivity {
         });
     }
 
-    private void addElementModelaPracenjaNaModelPracenja(int idModela, int unosElementaModelaPracenja) {
+    private void addElementModelaPracenjaNaModelPracenja(final int idModela, final int unosElementaModelaPracenja) {
         unosElementaNaModeluPracenja(unosElementaModelaPracenja, idModela);
     }
 
@@ -76,14 +76,14 @@ public class DodavanjeKolegija extends AppCompatActivity {
         return (int) Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosModelaPracenja(noviModel)[0];
     }
 
-    private void unosKolegija(final int idModela, String naziv) {
+    private void unosKolegija(final int idModela, final String naziv) {
         final Kolegij noviKolegij = new Kolegij();
         noviKolegij.setModelPracenja(idModela);
         noviKolegij.setNazivKolegija(naziv);
         Database.getInstance(getApplicationContext()).getKolegijDAO().unosKolegija(noviKolegij);
     }
 
-    private int unosElementaModelaPracenja(final int maksimalnibrojBodovaKol1, String nazivElementa) {
+    private int unosElementaModelaPracenja(final int maksimalnibrojBodovaKol1, final String nazivElementa) {
         final ElementModelaPracenja emp = new ElementModelaPracenja();
         emp.setMaksimalniBrojBodova(maksimalnibrojBodovaKol1);
         emp.setNaziv(nazivElementa);

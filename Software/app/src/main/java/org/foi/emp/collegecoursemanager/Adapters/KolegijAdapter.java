@@ -40,11 +40,11 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
         this.sviKolegiji = sviProslijedeniKolegiji;
     }
 
-    public Kolegij getKolegijAtPosition(int position) {
+    public Kolegij getKolegijAtPosition(final int position) {
         return sviKolegiji.get(position);
     }
 
-    public void removeKolegijAtPosition(int position) {
+    public void removeKolegijAtPosition(final int position) {
         sviKolegiji.remove(position);
     }
 

@@ -28,11 +28,11 @@ public class KolegijViewModel extends AndroidViewModel {
         return kolegijiLIVEData;
     }
 
-    public void izbrisiKolegij(Kolegij kolegij) {
+    public void izbrisiKolegij(final Kolegij kolegij) {
         Database.getInstance(context).getKolegijDAO().brisanjeKolegija(kolegij);
     }
 
-    public void izbrisiModelPracenja(Kolegij kolegij) {
+    public void izbrisiModelPracenja(final Kolegij kolegij) {
         Database.getInstance(context).getModelPracenjaDAO().izbrisiModelPracenjaKolegija(kolegij.getModelPracenja());
     }
 }

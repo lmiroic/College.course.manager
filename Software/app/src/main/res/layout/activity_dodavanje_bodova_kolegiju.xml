@@ -10,7 +10,6 @@
     android:paddingRight="10dp"
     android:paddingBottom="10dp"
     tools:context=".Activities.DodavanjeBodovaKolegiju">
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
