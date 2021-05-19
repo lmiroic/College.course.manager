@@ -8,25 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.util.StringUtil;
 
-import org.foi.emp.collegecoursemanager.DodavanjeBodovaKolegiju;
+import org.foi.emp.collegecoursemanager.Activities.DodavanjeBodovaKolegiju;
 import org.foi.emp.collegecoursemanager.R;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
-import org.foi.emp.core.Entities.ElementiNaModeluPracenja;
 import org.foi.emp.core.Entities.Kolegij;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijHolder> {
     private List<Kolegij> sviKolegiji = new ArrayList<>();
@@ -43,10 +39,12 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
     public void setKolegiji(List<Kolegij> sviProslijedeniKolegiji) {
         this.sviKolegiji = sviProslijedeniKolegiji;
     }
-    public Kolegij getKolegijAtPosition(int position){
+
+    public Kolegij getKolegijAtPosition(int position) {
         return sviKolegiji.get(position);
     }
-    public void removeKolegijAtPosition(int position){
+
+    public void removeKolegijAtPosition(int position) {
         sviKolegiji.remove(position);
     }
 

@@ -1,4 +1,4 @@
-package org.foi.emp.collegecoursemanager;
+package org.foi.emp.collegecoursemanager.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.foi.emp.collegecoursemanager.R;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
 import org.foi.emp.core.Entities.ElementiNaModeluPracenja;
@@ -49,24 +50,12 @@ public class DodavanjeKolegija extends AppCompatActivity {
                     if ((maksimalnibrojBodovaKol1 + maksimalnibrojBodovaKol2 + maksimalnibrojBodovaLab + maksimalnibrojBodovaAktivnost) == 100) {
                         final String naziv = nazivKolegija.getText().toString();
                         final String model = modelPracenja.getText().toString();
-
                         final int idModela = unosModelaPracenja(model);
                         unosKolegija(idModela, naziv);
-                        final String nazivElementa = "Kolokvij 1";
-                        final int idElementa = unosElementaModelaPracenja(maksimalnibrojBodovaKol1, nazivElementa);
-                        unosElementaNaModeluPracenja(idElementa, idModela);
-
-                        final String nazivEl1 = "Kolokvij 2";
-                        final int idElementa1 = unosElementaModelaPracenja(maksimalnibrojBodovaKol2, nazivEl1);
-                        unosElementaNaModeluPracenja(idElementa1, idModela);
-
-                        final String nazivEl2 = "Laboratorijske vjezbe";
-                        final int idElementa2 = unosElementaModelaPracenja(maksimalnibrojBodovaLab, nazivEl2);
-                        unosElementaNaModeluPracenja(idElementa2, idModela);
-
-                        final String nazivEl3 = "Aktivnost";
-                        final int idElementa3 = unosElementaModelaPracenja(maksimalnibrojBodovaAktivnost, nazivEl3);
-                        unosElementaNaModeluPracenja(idElementa3, idModela);
+                        addElementModelaPracenjaNaModelPracenja(idModela, unosElementaModelaPracenja(maksimalnibrojBodovaKol1, "Kolokvij 1"));
+                        addElementModelaPracenjaNaModelPracenja(idModela, unosElementaModelaPracenja(maksimalnibrojBodovaKol2, "Kolokvij 2"));
+                        addElementModelaPracenjaNaModelPracenja(idModela, unosElementaModelaPracenja(maksimalnibrojBodovaLab, "Laboratorijske vjezbe"));
+                        addElementModelaPracenjaNaModelPracenja(idModela, unosElementaModelaPracenja(maksimalnibrojBodovaAktivnost, "Aktivnost"));
                         Toast.makeText(getApplicationContext(), "Uspješno ste unijeli kolegij", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Zbroj mogucih bodova nije jednak 100", Toast.LENGTH_SHORT).show();
@@ -77,21 +66,25 @@ public class DodavanjeKolegija extends AppCompatActivity {
         });
     }
 
-    private int unosModelaPracenja(String nazivModela) {
-        ModelPracenja noviModel = new ModelPracenja();
+    private void addElementModelaPracenjaNaModelPracenja(int idModela, int unosElementaModelaPracenja) {
+        unosElementaNaModeluPracenja(unosElementaModelaPracenja, idModela);
+    }
+
+    private int unosModelaPracenja(final String nazivModela) {
+        final ModelPracenja noviModel = new ModelPracenja();
         noviModel.setNaziv(nazivModela);
         return (int) Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosModelaPracenja(noviModel)[0];
     }
 
-    private void unosKolegija(int idModela, String naziv) {
-        Kolegij noviKolegij = new Kolegij();
+    private void unosKolegija(final int idModela, String naziv) {
+        final Kolegij noviKolegij = new Kolegij();
         noviKolegij.setModelPracenja(idModela);
         noviKolegij.setNazivKolegija(naziv);
         Database.getInstance(getApplicationContext()).getKolegijDAO().unosKolegija(noviKolegij);
     }
 
-    private int unosElementaModelaPracenja(int maksimalnibrojBodovaKol1, String nazivElementa) {
-        ElementModelaPracenja emp = new ElementModelaPracenja();
+    private int unosElementaModelaPracenja(final int maksimalnibrojBodovaKol1, String nazivElementa) {
+        final ElementModelaPracenja emp = new ElementModelaPracenja();
         emp.setMaksimalniBrojBodova(maksimalnibrojBodovaKol1);
         emp.setNaziv(nazivElementa);
         emp.setOstvareniBodovi(0);
@@ -99,7 +92,7 @@ public class DodavanjeKolegija extends AppCompatActivity {
     }
 
     private void unosElementaNaModeluPracenja(final int idElementa, final int idModela) {
-        ElementiNaModeluPracenja empi = new ElementiNaModeluPracenja();
+        final ElementiNaModeluPracenja empi = new ElementiNaModeluPracenja();
         empi.setElementModelaPracenja(idElementa);
         empi.setModelPracenja(idModela);
         Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosElementaNaModeluPracenja(empi);

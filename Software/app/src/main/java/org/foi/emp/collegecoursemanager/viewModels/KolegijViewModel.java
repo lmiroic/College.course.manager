@@ -16,19 +16,23 @@ import java.util.List;
 
 public class KolegijViewModel extends AndroidViewModel {
     private Context context;
-    public LiveData<List<Kolegij>>kolegijiLIVEData;
+    public LiveData<List<Kolegij>> kolegijiLIVEData;
+
     public KolegijViewModel(@NonNull Application application) {
         super(application);
-        this.context=application;
+        this.context = application;
     }
-    public LiveData<List<Kolegij>> dohvatiSveKolegijeLIVE(){
-        this.kolegijiLIVEData= Database.getInstance(context).getKolegijDAO().dohvatiSveKolegijeLIVE();
-        return  kolegijiLIVEData;
+
+    public LiveData<List<Kolegij>> dohvatiSveKolegijeLIVE() {
+        this.kolegijiLIVEData = Database.getInstance(context).getKolegijDAO().dohvatiSveKolegijeLIVE();
+        return kolegijiLIVEData;
     }
-    public void izbrisiKolegij(Kolegij kolegij){
+
+    public void izbrisiKolegij(Kolegij kolegij) {
         Database.getInstance(context).getKolegijDAO().brisanjeKolegija(kolegij);
     }
-    public void izbrisiModelPracenja(Kolegij kolegij){
+
+    public void izbrisiModelPracenja(Kolegij kolegij) {
         Database.getInstance(context).getModelPracenjaDAO().izbrisiModelPracenjaKolegija(kolegij.getModelPracenja());
     }
 }

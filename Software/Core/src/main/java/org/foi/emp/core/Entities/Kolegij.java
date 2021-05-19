@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(tableName = "Kolegij",foreignKeys = {@ForeignKey(entity = ModelPracenja.class,parentColumns = "id",childColumns = "modelPracenja",onDelete = ForeignKey.CASCADE)})
+@Entity(tableName = "Kolegij", foreignKeys = {@ForeignKey(entity = ModelPracenja.class, parentColumns = "id", childColumns = "modelPracenja", onDelete = ForeignKey.CASCADE)})
 public class Kolegij {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -23,7 +23,7 @@ public class Kolegij {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 

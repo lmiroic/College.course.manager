@@ -9,12 +9,13 @@
     android:paddingTop="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp"
-    tools:context=".DodavanjeBodovaKolegiju">
+    tools:context=".Activities.DodavanjeBodovaKolegiju">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#4CAF50"
         android:paddingTop="25dp"
         android:text="Unos bodova kolegija"
         android:textAlignment="center"

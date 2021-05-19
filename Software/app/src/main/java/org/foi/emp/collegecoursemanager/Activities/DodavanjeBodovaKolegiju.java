@@ -1,4 +1,4 @@
-package org.foi.emp.collegecoursemanager;
+package org.foi.emp.collegecoursemanager.Activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.foi.emp.collegecoursemanager.R;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
 import org.foi.emp.core.Entities.ElementiNaModeluPracenja;
@@ -50,8 +51,6 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
         if (i != null && i.getIntExtra(INTENT_KOLEGIJ_ID, 0) != 0) {
             Kolegij kolegij = Database.getInstance(getApplicationContext()).getKolegijDAO().dohvatiKolegij(i.getIntExtra(INTENT_KOLEGIJ_ID, 0));
             elementiModelaPracenja = DohvatiListuElemenataModelaPracenja(kolegij);
-            //Database.getInstance(getApplicationContext()).getModelPracenjaDAO().dohvatiListuElemenataModelaPracenjaPoModeluPracenjaLIVE(kolegij.getModelPracenja());
-
             this.nazivKolegija.setText(kolegij.getNazivKolegija());
             PostaviSpinner();
             spListaElemenataKolegija.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
