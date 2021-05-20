@@ -1,6 +1,7 @@
 package org.foi.emp.collegecoursemanager.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.foi.emp.collegecoursemanager.R;
+import org.foi.emp.collegecoursemanager.viewModels.KolegijViewModel;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
 import org.foi.emp.core.Entities.ElementiNaModeluPracenja;
@@ -20,11 +22,13 @@ import org.foi.emp.core.Entities.ModelPracenja;
 public class DodavanjeKolegija extends AppCompatActivity {
     private Button spremi;
     private EditText nazivKolegija, modelPracenja, kolokvij1, kolokvij2, aktivnost, labosi;
+    private KolegijViewModel kolegijViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodavanje_kolegija);
+        this.kolegijViewModel = ViewModelProviders.of(this).get(KolegijViewModel.class);
         this.spremi = findViewById(R.id.btnSpremiBodove);
         this.spremi.setBackgroundColor(Color.parseColor("#4caf50"));
         this.nazivKolegija = findViewById(R.id.txtNazivKolegija);
@@ -75,14 +79,14 @@ public class DodavanjeKolegija extends AppCompatActivity {
     private int unosModelaPracenja(final String nazivModela) {
         final ModelPracenja noviModel = new ModelPracenja();
         noviModel.setNaziv(nazivModela);
-        return (int) Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosModelaPracenja(noviModel)[0];
+        return this.kolegijViewModel.unosModelaPracenja(noviModel);
     }
 
     private void unosKolegija(final int idModela, final String naziv) {
         final Kolegij noviKolegij = new Kolegij();
         noviKolegij.setModelPracenja(idModela);
         noviKolegij.setNazivKolegija(naziv);
-        Database.getInstance(getApplicationContext()).getKolegijDAO().unosKolegija(noviKolegij);
+        this.kolegijViewModel.unosKolegija(noviKolegij);
     }
 
     private int unosElementaModelaPracenja(final int maksimalnibrojBodovaKol1, final String nazivElementa) {
@@ -90,14 +94,14 @@ public class DodavanjeKolegija extends AppCompatActivity {
         emp.setMaksimalniBrojBodova(maksimalnibrojBodovaKol1);
         emp.setNaziv(nazivElementa);
         emp.setOstvareniBodovi(0);
-        return (int) Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosElementaModelaPracenja(emp)[0];
+        return this.kolegijViewModel.unosElementaModelaPracenja(emp);
     }
 
     private void unosElementaNaModeluPracenja(final int idElementa, final int idModela) {
         final ElementiNaModeluPracenja empi = new ElementiNaModeluPracenja();
         empi.setElementModelaPracenja(idElementa);
         empi.setModelPracenja(idModela);
-        Database.getInstance(getApplicationContext()).getModelPracenjaDAO().unosElementaNaModeluPracenja(empi);
+        this.kolegijViewModel.unosElementaNaModeluPracenja(empi);
     }
 
     private boolean provjeraPraznihUnosa(String kol1, String kol2, String aktivnost, String labosi, String nazivKolegija, String nazivModela) {

@@ -3,6 +3,7 @@ package org.foi.emp.collegecoursemanager.Activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.foi.emp.collegecoursemanager.R;
+import org.foi.emp.collegecoursemanager.viewModels.BodoviViewModel;
+import org.foi.emp.collegecoursemanager.viewModels.KolegijViewModel;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
 import org.foi.emp.core.Entities.Kolegij;
@@ -34,6 +37,8 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
     private Button spremiBodove;
     private TextView nazivKolegija;
     private List<ElementModelaPracenja> elementiModelaPracenja = new ArrayList<>();
+    private BodoviViewModel bodoviViewModel;
+    private KolegijViewModel kolegijViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -41,6 +46,8 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodavanje_bodova_kolegiju);
         Intent i = getIntent();
+        this.kolegijViewModel = ViewModelProviders.of(this).get(KolegijViewModel.class);
+        this.bodoviViewModel = ViewModelProviders.of(this).get(BodoviViewModel.class);
         this.ostvareniBodovi = findViewById(R.id.txtOstvareniBodovi);
         this.ostvareniBodovi.setInputType(InputType.TYPE_CLASS_NUMBER);
         this.spListaElemenataKolegija = findViewById(R.id.spElementiModelaPracenja);
@@ -48,8 +55,8 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
         this.spremiBodove.setBackgroundColor(Color.parseColor("#4caf50"));
         this.nazivKolegija = findViewById(R.id.tvNazivKolegijaZaBodove);
         if (i != null && i.getIntExtra(INTENT_KOLEGIJ_ID, 0) != 0) {
-            Kolegij kolegij = Database.getInstance(getApplicationContext()).getKolegijDAO().dohvatiKolegij(i.getIntExtra(INTENT_KOLEGIJ_ID, 0));
-            elementiModelaPracenja = DohvatiListuElemenataModelaPracenja(kolegij);
+            Kolegij kolegij = this.kolegijViewModel.dohvatiKolegijPoID(i.getIntExtra(INTENT_KOLEGIJ_ID, 0));
+            elementiModelaPracenja = this.bodoviViewModel.DohvatiListuElemenataModelaPracenja(kolegij);
             this.nazivKolegija.setText(kolegij.getNazivKolegija());
             PostaviSpinner();
             spListaElemenataKolegija.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -60,17 +67,17 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
                     spremiBodove.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(Integer.parseInt(ostvareniBodovi.getText().toString())<=emp.getMaksimalniBrojBodova()){
+                            if (Integer.parseInt(ostvareniBodovi.getText().toString()) <= emp.getMaksimalniBrojBodova()) {
                                 emp.setOstvareniBodovi(Integer.parseInt(ostvareniBodovi.getText().toString()));
-                                Database.getInstance(getApplicationContext()).getModelPracenjaDAO().ažuriranjeElementaModelaPracenja(emp);
-                                Toast.makeText(getApplicationContext(),"Uspjesno unesni bodovi za "+emp.getNaziv(),Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"Ostvareni bodovi ne mogu biti veci od "+String.valueOf(emp.getMaksimalniBrojBodova()),Toast.LENGTH_SHORT).show();
+                                bodoviViewModel.azuriranjeElementaModelaPracenja(emp);
+                                Toast.makeText(getApplicationContext(), "Uspjesno unesni bodovi za " + emp.getNaziv(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Ostvareni bodovi ne mogu biti veci od " + String.valueOf(emp.getMaksimalniBrojBodova()), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
+
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
@@ -85,16 +92,6 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item, elementi);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spListaElemenataKolegija.setAdapter(adapter);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private List<ElementModelaPracenja> DohvatiListuElemenataModelaPracenja(Kolegij kolegij) {
-        return Database.getInstance(getApplicationContext()).getModelPracenjaDAO().dohvatiElementeModelaPracenja(kolegij.getModelPracenja())
-                .stream()
-                .map(elementiNaModeluPracenja -> elementiNaModeluPracenja.getElementModelaPracenja())
-                .map(emnp -> {
-                    return Database.getInstance(getApplicationContext()).getModelPracenjaDAO().dohvatiElementModelaPracenja(emnp);
-                }).collect(Collectors.toList());
+        this.spListaElemenataKolegija.setAdapter(adapter);
     }
 }
