@@ -1,6 +1,7 @@
 package org.foi.emp.collegecoursemanager.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         PostaviRecycleView();
-        makeKolegijEraseable(recyclerView, adapter);
+        brisiKolegij(recyclerView, adapter);
     }
 
     private KolegijAdapter PostaviRecycleView() {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void makeKolegijEraseable(final RecyclerView recyclerView, final KolegijAdapter kolegijAdapter) {
+    public void brisiKolegij(final RecyclerView recyclerView, final KolegijAdapter kolegijAdapter) {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {

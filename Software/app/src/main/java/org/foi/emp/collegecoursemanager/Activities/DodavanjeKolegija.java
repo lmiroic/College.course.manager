@@ -2,6 +2,7 @@ package org.foi.emp.collegecoursemanager.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -25,6 +26,7 @@ public class DodavanjeKolegija extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodavanje_kolegija);
         this.spremi = findViewById(R.id.btnSpremiBodove);
+        this.spremi.setBackgroundColor(Color.parseColor("#4caf50"));
         this.nazivKolegija = findViewById(R.id.txtNazivKolegija);
         this.modelPracenja = findViewById(R.id.txtModelPracenja);
         this.kolokvij1 = findViewById(R.id.txtKolokvij1MoguciBodovi);

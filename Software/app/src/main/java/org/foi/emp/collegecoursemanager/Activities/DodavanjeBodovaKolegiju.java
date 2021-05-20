@@ -1,11 +1,11 @@
 package org.foi.emp.collegecoursemanager.Activities;
 
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.room.util.StringUtil;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -21,12 +21,10 @@ import android.widget.Toast;
 import org.foi.emp.collegecoursemanager.R;
 import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
-import org.foi.emp.core.Entities.ElementiNaModeluPracenja;
 import org.foi.emp.core.Entities.Kolegij;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DodavanjeBodovaKolegiju extends AppCompatActivity {
@@ -47,6 +45,7 @@ public class DodavanjeBodovaKolegiju extends AppCompatActivity {
         this.ostvareniBodovi.setInputType(InputType.TYPE_CLASS_NUMBER);
         this.spListaElemenataKolegija = findViewById(R.id.spElementiModelaPracenja);
         this.spremiBodove = findViewById(R.id.btnSpremiBodove);
+        this.spremiBodove.setBackgroundColor(Color.parseColor("#4caf50"));
         this.nazivKolegija = findViewById(R.id.tvNazivKolegijaZaBodove);
         if (i != null && i.getIntExtra(INTENT_KOLEGIJ_ID, 0) != 0) {
             Kolegij kolegij = Database.getInstance(getApplicationContext()).getKolegijDAO().dohvatiKolegij(i.getIntExtra(INTENT_KOLEGIJ_ID, 0));
