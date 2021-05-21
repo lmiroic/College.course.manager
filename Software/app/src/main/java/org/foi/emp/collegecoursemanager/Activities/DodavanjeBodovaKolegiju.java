@@ -1,10 +1,6 @@
 package org.foi.emp.collegecoursemanager.Activities;
 
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -19,16 +15,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import org.foi.emp.collegecoursemanager.R;
 import org.foi.emp.collegecoursemanager.viewModels.BodoviViewModel;
 import org.foi.emp.collegecoursemanager.viewModels.KolegijViewModel;
-import org.foi.emp.core.Database.Database;
 import org.foi.emp.core.Entities.ElementModelaPracenja;
 import org.foi.emp.core.Entities.Kolegij;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DodavanjeBodovaKolegiju extends AppCompatActivity {
     private static final String INTENT_KOLEGIJ_ID = "ID_kolegija";

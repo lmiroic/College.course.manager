@@ -88,8 +88,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="44dp"
-        app:srcCompat="@android:drawable/ic_input_add"/>
-
-
-
+        android:foreground="@android:drawable/ic_input_add"
+        app:rippleColor="#FFFFFF"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </RelativeLayout>

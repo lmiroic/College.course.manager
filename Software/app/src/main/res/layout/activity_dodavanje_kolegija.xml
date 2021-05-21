@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
     android:paddingBottom="10dp"
     tools:context=".Activities.DodavanjeKolegija">
 
@@ -140,6 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="56dp"
             android:text="Spremi"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
