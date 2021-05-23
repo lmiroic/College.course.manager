@@ -36,7 +36,7 @@ public class KolegijAdapter extends RecyclerView.Adapter<KolegijAdapter.KolegijH
         this.activity = activity;
     }
 
-    public void setKolegiji(List<Kolegij> sviProslijedeniKolegiji) {
+    public void postaviKolegije(List<Kolegij> sviProslijedeniKolegiji) {
         this.sviKolegiji = sviProslijedeniKolegiji;
     }
 

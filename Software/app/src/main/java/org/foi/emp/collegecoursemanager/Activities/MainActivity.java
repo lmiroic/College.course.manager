@@ -1,24 +1,21 @@
 package org.foi.emp.collegecoursemanager.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.foi.emp.collegecoursemanager.Adapters.KolegijAdapter;
 import org.foi.emp.collegecoursemanager.R;
@@ -55,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
         this.recyclerView = (RecyclerView) findViewById(R.id.recyleViewPopisKolegija);
         this.adapter = new KolegijAdapter(this, this);
         this.kolegijViewModel.dohvatiSveKolegijeLIVE();
-        this.adapter.setKolegiji(kolegijViewModel.dohvatiSveKolegijeLIVE().getValue());
+        this.adapter.postaviKolegije(kolegijViewModel.dohvatiSveKolegijeLIVE().getValue());
         this.kolegijViewModel.kolegijiLIVEData.observe(this, new Observer<List<Kolegij>>() {
             @Override
             public void onChanged(List<Kolegij> kolegijs) {
-                adapter.setKolegiji(kolegijs);
+                adapter.postaviKolegije(kolegijs);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerView.setHasFixedSize(false);
                 recyclerView.setAdapter(adapter);
