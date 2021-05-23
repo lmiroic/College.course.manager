@@ -5,19 +5,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FirstFragment">
-
-    <TextView
-        android:id="@+id/textview_first"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Popis kolegija"
-        android:textAlignment="center"
-        android:textColor="#050505"
-        android:textSize="30sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
+    tools:context=".FirstFragment"/>

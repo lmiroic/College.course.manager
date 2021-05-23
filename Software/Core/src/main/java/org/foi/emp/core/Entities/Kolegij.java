@@ -8,14 +8,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity(tableName = "Kolegij",foreignKeys = {@ForeignKey(entity = ModelPracenja.class,parentColumns = "id",childColumns = "modelPracenja")})
+@Entity(tableName = "Kolegij", foreignKeys = {@ForeignKey(entity = ModelPracenja.class, parentColumns = "id", childColumns = "modelPracenja", onDelete = ForeignKey.CASCADE)})
 public class Kolegij {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String nazivKolegija;
     private int modelPracenja;
+
+    public Kolegij() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(final int id) {
+        this.id = id;
+    }
+
+    public String getNazivKolegija() {
+        return nazivKolegija;
+    }
+
+    public void setNazivKolegija(final String nazivKolegija) {
+        this.nazivKolegija = nazivKolegija;
+    }
+
+    public int getModelPracenja() {
+        return modelPracenja;
+    }
+
+    public void setModelPracenja(final int modelPracenja) {
+        this.modelPracenja = modelPracenja;
+    }
 }

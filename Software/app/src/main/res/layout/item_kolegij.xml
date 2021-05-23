@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    app:cardBackgroundColor="#4CAF50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4CAF50"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/tvBrojBodova"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Broj bodova"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvOcjena"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:text="Ocjena"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvNazivKolegija"
+            android:layout_width="165dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:singleLine="false"
+            android:text="Naziv kolegija"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
